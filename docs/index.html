@@ -723,6 +723,12 @@
     "linkToTheOffer" : {
       "type" : "string",
       "format" : "uri"
+    },
+    "status" : {
+      "type" : "string",
+      "description" : "Application process status",
+      "default" : "FOLLOWING",
+      "enum" : [ "FOLLOWING", "APPLIED", "INTERVIEW_STAGE", "WAITING_FOR_FEEDBACK", "OFFER_RECEIVED", "REJECTED", "ACCEPTED", "NO_FEEDBACK" ]
     }
   }
 };
@@ -767,6 +773,12 @@
       "type" : "string",
       "format" : "uri",
       "example" : "https://example.com/offer/123"
+    },
+    "status" : {
+      "type" : "string",
+      "description" : "Application process status",
+      "default" : "FOLLOWING",
+      "enum" : [ "FOLLOWING", "APPLIED", "INTERVIEW_STAGE", "WAITING_FOR_FEEDBACK", "OFFER_RECEIVED", "REJECTED", "ACCEPTED", "NO_FEEDBACK" ]
     }
   }
 };
@@ -793,8 +805,14 @@
                     <li data-group="Default" data-name="offersIdDelete" class="">
                       <a href="#api-Default-offersIdDelete">offersIdDelete</a>
                     </li>
-                    <li data-group="Default" data-name="offersPost" class="">
-                      <a href="#api-Default-offersPost">offersPost</a>
+                    <li data-group="Default" data-name="offersIdPatch" class="">
+                      <a href="#api-Default-offersIdPatch">offersIdPatch</a>
+                    </li>
+                    <li data-group="Default" data-name="offersIdPut" class="">
+                      <a href="#api-Default-offersIdPut">offersIdPut</a>
+                    </li>
+                    <li data-group="Default" data-name="offersStatusesGet" class="">
+                      <a href="#api-Default-offersStatusesGet">offersStatusesGet</a>
                     </li>
                     <li data-group="Default" data-name="rootGet" class="">
                       <a href="#api-Default-rootGet">rootGet</a>
@@ -1344,44 +1362,450 @@ except ApiException as e:
                         </article>
                       </div>
                       <hr>
-                    <div id="api-Default-offersPost">
-                      <article id="api-Default-offersPost-0" data-group="User" data-name="offersPost" data-version="0">
+                    <div id="api-Default-offersIdPatch">
+                      <article id="api-Default-offersIdPatch-0" data-group="User" data-name="offersIdPatch" data-version="0">
                         <div class="pull-left">
-                          <h1>offersPost</h1>
-                          <p>Create a new offer</p>
+                          <h1>offersIdPatch</h1>
+                          <p>Update an offer (partial update)</p>
                         </div>
                         <div class="pull-right"></div>
                         <div class="clearfix"></div>
                         <p></p>
-                        <p class="marked">Add a new job offer to the database</p>
+                        <p class="marked">**Updates only the specified fields.** Only the fields included in the request body will be modified. All other fields remain unchanged. This is useful when you want to update specific properties without affecting the rest.</p>
                         <p></p>
                         <br />
-                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/offers</span></code></pre>
+                        <pre class="prettyprint language-html prettyprinted" data-type="patch"><code><span class="pln">/offers/{id}</span></code></pre>
                         <p>
                           <h3>Usage and SDK Samples</h3>
                         </p>
                         <ul class="nav nav-tabs nav-tabs-examples">
-                          <li class="active"><a href="#examples-Default-offersPost-0-curl">Curl</a></li>
-                          <li class=""><a href="#examples-Default-offersPost-0-java">Java</a></li>
-                          <li class=""><a href="#examples-Default-offersPost-0-android">Android</a></li>
-                          <!--<li class=""><a href="#examples-Default-offersPost-0-groovy">Groovy</a></li>-->
-                          <li class=""><a href="#examples-Default-offersPost-0-objc">Obj-C</a></li>
-                          <li class=""><a href="#examples-Default-offersPost-0-javascript">JavaScript</a></li>
-                          <!--<li class=""><a href="#examples-Default-offersPost-0-angular">Angular</a></li>-->
-                          <li class=""><a href="#examples-Default-offersPost-0-csharp">C#</a></li>
-                          <li class=""><a href="#examples-Default-offersPost-0-php">PHP</a></li>
-                          <li class=""><a href="#examples-Default-offersPost-0-perl">Perl</a></li>
-                          <li class=""><a href="#examples-Default-offersPost-0-python">Python</a></li>
+                          <li class="active"><a href="#examples-Default-offersIdPatch-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersIdPatch-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersIdPatch-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPatch-0-python">Python</a></li>
                         </ul>
 
                         <div class="tab-content">
-                          <div class="tab-pane active" id="examples-Default-offersPost-0-curl">
-                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+                          <div class="tab-pane active" id="examples-Default-offersIdPatch-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PATCH\
 -H "Accept: application/json"\
 -H "Content-Type: application/json"\
-"http://localhost:8080/offers"</code></pre>
+"http://localhost:8080/offers/{id}"</code></pre>
                           </div>
-                          <div class="tab-pane" id="examples-Default-offersPost-0-java">
+                          <div class="tab-pane" id="examples-Default-offersIdPatch-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        Object body = ; // Object | 
+        Integer id = 56; // Integer | The ID of the offer to update
+        try {
+            Offer result = apiInstance.offersIdPatch(body, id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersIdPatch");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-offersIdPatch-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        Object body = ; // Object | 
+        Integer id = 56; // Integer | The ID of the offer to update
+        try {
+            Offer result = apiInstance.offersIdPatch(body, id);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersIdPatch");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-offersIdPatch-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-offersIdPatch-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Object *body = ; // 
+Integer *id = 56; // The ID of the offer to update
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Update an offer (partial update)
+[apiInstance offersIdPatchWith:body
+    id:id
+              completionHandler: ^(Offer output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdPatch-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
+
+var api = new JobApplicationHelperApi.DefaultApi()
+var body = ; // {{Object}} 
+var id = 56; // {{Integer}} The ID of the offer to update
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.offersIdPatch(bodyid, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-offersIdPatch-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-offersIdPatch-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class offersIdPatchExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new DefaultApi();
+            var body = new Object(); // Object | 
+            var id = 56;  // Integer | The ID of the offer to update
+
+            try
+            {
+                // Update an offer (partial update)
+                Offer result = apiInstance.offersIdPatch(body, id);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.offersIdPatch: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdPatch-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiDefaultApi();
+$body = ; // Object | 
+$id = 56; // Integer | The ID of the offer to update
+
+try {
+    $result = $api_instance->offersIdPatch($body, $id);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->offersIdPatch: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdPatch-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $body = WWW::SwaggerClient::Object::Object->new(); # Object | 
+my $id = 56; # Integer | The ID of the offer to update
+
+eval { 
+    my $result = $api_instance->offersIdPatch(body => $body, id => $id);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->offersIdPatch: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdPatch-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+body =  # Object | 
+id = 56 # Integer | The ID of the offer to update
+
+try: 
+    # Update an offer (partial update)
+    api_response = api_instance.offers_id_patch(body, id)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->offersIdPatch: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_offersIdPatch_id">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Integer
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          The ID of the offer to update
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "companyName" : {
+            "type" : "string"
+          },
+          "companyImage" : {
+            "type" : "string"
+          },
+          "position" : {
+            "type" : "string"
+          },
+          "description" : {
+            "type" : "string"
+          },
+          "jobType" : {
+            "type" : "string"
+          },
+          "agreementType" : {
+            "type" : "string"
+          },
+          "salary" : {
+            "type" : "string"
+          },
+          "publishDate" : {
+            "type" : "string",
+            "format" : "date"
+          },
+          "linkToTheOffer" : {
+            "type" : "string",
+            "format" : "uri"
+          },
+          "status" : {
+            "type" : "string",
+            "enum" : [ "FOLLOWING", "APPLIED", "INTERVIEW_STAGE", "WAITING_FOR_FEEDBACK", "OFFER_RECEIVED", "REJECTED", "ACCEPTED", "NO_FEEDBACK" ]
+          }
+        },
+        "description" : "Object containing only the fields to update",
+        "example" : {
+          "companyName" : "Updated Company Name",
+          "salary" : "20000-25000 PLN",
+          "status" : "INTERVIEW_STAGE"
+        }
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_offersIdPatch_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_offersIdPatch_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - Offer updated successfully </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-offersIdPatch-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-offersIdPatch-200-schema">
+                                  <div id='responses-offersIdPatch-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Offer updated successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/Offer"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-offersIdPatch-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-offersIdPatch-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-offersIdPatch-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Invalid ID format </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Offer not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-offersIdPut">
+                      <article id="api-Default-offersIdPut-0" data-group="User" data-name="offersIdPut" data-version="0">
+                        <div class="pull-left">
+                          <h1>offersIdPut</h1>
+                          <p>Replace an offer (full update)</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">**Replaces the entire offer resource.** All fields must be provided in the request body. Missing fields will be set to their default values or null. Use PATCH for partial updates.</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="put"><code><span class="pln">/offers/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-offersIdPut-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPut-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPut-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersIdPut-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-offersIdPut-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPut-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersIdPut-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-offersIdPut-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPut-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPut-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-offersIdPut-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-offersIdPut-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X PUT\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://localhost:8080/offers/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-offersIdPut-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
 import io.swagger.client.auth.*;
 import io.swagger.client.model.*;
@@ -1396,18 +1820,19 @@ public class DefaultApiExample {
         
         DefaultApi apiInstance = new DefaultApi();
         OfferInput body = ; // OfferInput | 
+        Integer id = 56; // Integer | The ID of the offer to replace
         try {
-            Object result = apiInstance.offersPost(body);
+            Offer result = apiInstance.offersIdPut(body, id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#offersPost");
+            System.err.println("Exception when calling DefaultApi#offersIdPut");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
 
-                          <div class="tab-pane" id="examples-Default-offersPost-0-android">
+                          <div class="tab-pane" id="examples-Default-offersIdPut-0-android">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
 
 public class DefaultApiExample {
@@ -1415,28 +1840,31 @@ public class DefaultApiExample {
     public static void main(String[] args) {
         DefaultApi apiInstance = new DefaultApi();
         OfferInput body = ; // OfferInput | 
+        Integer id = 56; // Integer | The ID of the offer to replace
         try {
-            Object result = apiInstance.offersPost(body);
+            Offer result = apiInstance.offersIdPut(body, id);
             System.out.println(result);
         } catch (ApiException e) {
-            System.err.println("Exception when calling DefaultApi#offersPost");
+            System.err.println("Exception when calling DefaultApi#offersIdPut");
             e.printStackTrace();
         }
     }
 }</code></pre>
                           </div>
   <!--
-  <div class="tab-pane" id="examples-Default-offersPost-0-groovy">
+  <div class="tab-pane" id="examples-Default-offersIdPut-0-groovy">
   <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
   </div> -->
-                            <div class="tab-pane" id="examples-Default-offersPost-0-objc">
+                            <div class="tab-pane" id="examples-Default-offersIdPut-0-objc">
                               <pre class="prettyprint"><code class="language-cpp">OfferInput *body = ; // 
+Integer *id = 56; // The ID of the offer to replace
 
 DefaultApi *apiInstance = [[DefaultApi alloc] init];
 
-// Create a new offer
-[apiInstance offersPostWith:body
-              completionHandler: ^(Object output, NSError* error) {
+// Replace an offer (full update)
+[apiInstance offersIdPutWith:body
+    id:id
+              completionHandler: ^(Offer output, NSError* error) {
                             if (output) {
                                 NSLog(@"%@", output);
                             }
@@ -1447,11 +1875,12 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-offersPost-0-javascript">
+                            <div class="tab-pane" id="examples-Default-offersIdPut-0-javascript">
                               <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
 
 var api = new JobApplicationHelperApi.DefaultApi()
 var body = ; // {{OfferInput}} 
+var id = 56; // {{Integer}} The ID of the offer to replace
 
 var callback = function(error, data, response) {
   if (error) {
@@ -1460,14 +1889,14 @@ var callback = function(error, data, response) {
     console.log('API called successfully. Returned data: ' + data);
   }
 };
-api.offersPost(body, callback);
+api.offersIdPut(bodyid, callback);
 </code></pre>
                             </div>
 
-                            <!--<div class="tab-pane" id="examples-Default-offersPost-0-angular">
+                            <!--<div class="tab-pane" id="examples-Default-offersIdPut-0-angular">
               <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
             </div>-->
-                            <div class="tab-pane" id="examples-Default-offersPost-0-csharp">
+                            <div class="tab-pane" id="examples-Default-offersIdPut-0-csharp">
                               <pre class="prettyprint"><code class="language-cs">using System;
 using System.Diagnostics;
 using IO.Swagger.Api;
@@ -1476,23 +1905,24 @@ using IO.Swagger.Model;
 
 namespace Example
 {
-    public class offersPostExample
+    public class offersIdPutExample
     {
         public void main()
         {
 
             var apiInstance = new DefaultApi();
             var body = new OfferInput(); // OfferInput | 
+            var id = 56;  // Integer | The ID of the offer to replace
 
             try
             {
-                // Create a new offer
-                Object result = apiInstance.offersPost(body);
+                // Replace an offer (full update)
+                Offer result = apiInstance.offersIdPut(body, id);
                 Debug.WriteLine(result);
             }
             catch (Exception e)
             {
-                Debug.Print("Exception when calling DefaultApi.offersPost: " + e.Message );
+                Debug.Print("Exception when calling DefaultApi.offersIdPut: " + e.Message );
             }
         }
     }
@@ -1500,40 +1930,42 @@ namespace Example
 </code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-offersPost-0-php">
+                            <div class="tab-pane" id="examples-Default-offersIdPut-0-php">
                               <pre class="prettyprint"><code class="language-php"><&#63;php
 require_once(__DIR__ . '/vendor/autoload.php');
 
 $api_instance = new Swagger\Client\ApiDefaultApi();
 $body = ; // OfferInput | 
+$id = 56; // Integer | The ID of the offer to replace
 
 try {
-    $result = $api_instance->offersPost($body);
+    $result = $api_instance->offersIdPut($body, $id);
     print_r($result);
 } catch (Exception $e) {
-    echo 'Exception when calling DefaultApi->offersPost: ', $e->getMessage(), PHP_EOL;
+    echo 'Exception when calling DefaultApi->offersIdPut: ', $e->getMessage(), PHP_EOL;
 }
 ?></code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-offersPost-0-perl">
+                            <div class="tab-pane" id="examples-Default-offersIdPut-0-perl">
                               <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
 use WWW::SwaggerClient::Configuration;
 use WWW::SwaggerClient::DefaultApi;
 
 my $api_instance = WWW::SwaggerClient::DefaultApi->new();
 my $body = WWW::SwaggerClient::Object::OfferInput->new(); # OfferInput | 
+my $id = 56; # Integer | The ID of the offer to replace
 
 eval { 
-    my $result = $api_instance->offersPost(body => $body);
+    my $result = $api_instance->offersIdPut(body => $body, id => $id);
     print Dumper($result);
 };
 if ($@) {
-    warn "Exception when calling DefaultApi->offersPost: $@\n";
+    warn "Exception when calling DefaultApi->offersIdPut: $@\n";
 }</code></pre>
                             </div>
 
-                            <div class="tab-pane" id="examples-Default-offersPost-0-python">
+                            <div class="tab-pane" id="examples-Default-offersIdPut-0-python">
                               <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
 import time
 import swagger_client
@@ -1543,18 +1975,48 @@ from pprint import pprint
 # create an instance of the API class
 api_instance = swagger_client.DefaultApi()
 body =  # OfferInput | 
+id = 56 # Integer | The ID of the offer to replace
 
 try: 
-    # Create a new offer
-    api_response = api_instance.offers_post(body)
+    # Replace an offer (full update)
+    api_response = api_instance.offers_id_put(body, id)
     pprint(api_response)
 except ApiException as e:
-    print("Exception when calling DefaultApi->offersPost: %s\n" % e)</code></pre>
+    print("Exception when calling DefaultApi->offersIdPut: %s\n" % e)</code></pre>
                             </div>
                           </div>
 
                           <h2>Parameters</h2>
 
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_offersIdPut_id">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Integer
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          The ID of the offer to replace
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
 
 
                             <div class="methodsubtabletitle">Body parameters</div>
@@ -1591,12 +2053,12 @@ except ApiException as e:
                                   }
                                 
                                   var view = new JSONSchemaView(schema,2,{isBodyParam: true});
-                                  var result = $('#d2e199_offersPost_body');
+                                  var result = $('#d2e199_offersIdPut_body');
                                   result.empty();
                                   result.append(view.render());
                                 });
                                 </script>
-                                <div id="d2e199_offersPost_body"></div>
+                                <div id="d2e199_offersIdPut_body"></div>
                                 </td>
                                 </tr>
                             </table>
@@ -1604,32 +2066,26 @@ except ApiException as e:
 
 
                           <h2>Responses</h2>
-                            <h3> Status: 201 - Offer created successfully </h3>
+                            <h3> Status: 200 - Offer replaced successfully </h3>
 
                             <ul class="nav nav-tabs nav-tabs-examples" >
                                 <li class="active">
-                                  <a data-toggle="tab" href="#responses-offersPost-201-schema">Schema</a>
+                                  <a data-toggle="tab" href="#responses-offersIdPut-200-schema">Schema</a>
                                 </li>
 
                             </ul>
 
                             <div class="tab-content" style='margin-bottom: 10px;'>
-                                <div class="tab-pane active" id="responses-offersPost-201-schema">
-                                  <div id='responses-offersPost-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                <div class="tab-pane active" id="responses-offersIdPut-200-schema">
+                                  <div id='responses-offersIdPut-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
                                     <script>
                                       $(document).ready(function() {
                                         var schemaWrapper = {
-  "description" : "Offer created successfully",
+  "description" : "Offer replaced successfully",
   "content" : {
     "application/json" : {
       "schema" : {
-        "type" : "object",
-        "properties" : {
-          "id" : {
-            "type" : "integer"
-          }
-        },
-        "x-content-type" : "application/json"
+        "$ref" : "#/components/schemas/Offer"
       }
     }
   }
@@ -1647,14 +2103,312 @@ except ApiException as e:
 
                                         //console.log(JSON.stringify(schema));
                                         var view = new JSONSchemaView(schema, 3);
-                                        $('#responses-offersPost-201-schema-data').val(stringify(schema));
-                                        var result = $('#responses-offersPost-201-schema-201');
+                                        $('#responses-offersIdPut-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-offersIdPut-200-schema-200');
                                         result.empty();
                                         result.append(view.render());
                                       });
                                     </script>
                                   </div>
-                                  <input id='responses-offersPost-201-schema-data' type='hidden' value=''></input>
+                                  <input id='responses-offersIdPut-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                            <h3> Status: 400 - Invalid ID format </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Offer not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-offersStatusesGet">
+                      <article id="api-Default-offersStatusesGet-0" data-group="User" data-name="offersStatusesGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>offersStatusesGet</h1>
+                          <p>Get available statuses</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Retrieve a list of all possible offer status values</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/offers/statuses</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-offersStatusesGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersStatusesGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersStatusesGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-offersStatusesGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-offersStatusesGet-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+-H "Accept: application/json"\
+"http://localhost:8080/offers/statuses"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-offersStatusesGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            array[Object] result = apiInstance.offersStatusesGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersStatusesGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-offersStatusesGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            array[Object] result = apiInstance.offersStatusesGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersStatusesGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-offersStatusesGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-offersStatusesGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Get available statuses
+[apiInstance offersStatusesGetWithCompletionHandler: 
+              ^(array[Object] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersStatusesGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
+
+var api = new JobApplicationHelperApi.DefaultApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.offersStatusesGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-offersStatusesGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-offersStatusesGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class offersStatusesGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // Get available statuses
+                array[Object] result = apiInstance.offersStatusesGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.offersStatusesGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersStatusesGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiDefaultApi();
+
+try {
+    $result = $api_instance->offersStatusesGet();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->offersStatusesGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersStatusesGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    my $result = $api_instance->offersStatusesGet();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->offersStatusesGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersStatusesGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    # Get available statuses
+    api_response = api_instance.offers_statuses_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->offersStatusesGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - List of available statuses </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-offersStatusesGet-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-offersStatusesGet-200-schema">
+                                  <div id='responses-offersStatusesGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "List of available statuses",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "type" : "object",
+          "properties" : {
+            "value" : {
+              "type" : "string",
+              "description" : "Status enum value"
+            },
+            "label" : {
+              "type" : "string",
+              "description" : "Human-readable status label"
+            }
+          }
+        },
+        "x-content-type" : "application/json"
+      },
+      "example" : [ {
+        "value" : "FOLLOWING",
+        "label" : "Following"
+      }, {
+        "value" : "APPLIED",
+        "label" : "Applied"
+      }, {
+        "value" : "INTERVIEW_STAGE",
+        "label" : "Interview stage"
+      } ]
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-offersStatusesGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-offersStatusesGet-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-offersStatusesGet-200-schema-data' type='hidden' value=''></input>
                                 </div>
                             </div>
 

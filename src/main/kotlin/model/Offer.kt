@@ -13,5 +13,6 @@ data class Offer(
     val agreementType: String,
     val salary: String,
     val publishDate: String,
-    val linkToTheOffer: String
+    val linkToTheOffer: String,
+    val status: OfferStatus
 )
