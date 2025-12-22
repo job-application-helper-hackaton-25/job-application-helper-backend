@@ -23,6 +23,13 @@ dependencies {
     implementation("io.ktor:ktor-serialization-jackson")
     implementation("io.ktor:ktor-server-di")
     implementation("io.ktor:ktor-server-netty")
+
+    implementation("org.jetbrains.exposed:exposed-core:0.43.0")
+    implementation("org.jetbrains.exposed:exposed-dao:0.43.0")
+    implementation("org.jetbrains.exposed:exposed-jdbc:0.43.0")
+
+    implementation("org.postgresql:postgresql:42.7.7")
+
     implementation("ch.qos.logback:logback-classic:$logback_version")
     testImplementation("io.ktor:ktor-server-test-host")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

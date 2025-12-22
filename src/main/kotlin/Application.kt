@@ -1,8 +1,12 @@
 package com.hackaton
 
+import config.DatabaseConfig
 import io.ktor.server.application.*
 import io.ktor.server.engine.*
 import io.ktor.server.netty.*
+import io.ktor.server.routing.routing
+import offerRoutes
+import plugins.configureRouting
 
 fun main() {
     embeddedServer(
@@ -20,4 +24,10 @@ fun Application.module() {
     configureSerialization()
     configureFrameworks()
     configureRouting()
+
+    DatabaseConfig.init()
+
+    routing {
+        offerRoutes()
+    }
 }
