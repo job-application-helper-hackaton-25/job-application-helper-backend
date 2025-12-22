@@ -17,6 +17,7 @@ dependencies {
     implementation("io.ktor:ktor-server-core")
     implementation("io.ktor:ktor-server-call-logging")
     implementation("io.ktor:ktor-server-default-headers")
+    implementation("io.ktor:ktor-server-cors")
     implementation("io.ktor:ktor-server-swagger")
     implementation("io.ktor:ktor-server-openapi")
     implementation("io.ktor:ktor-server-content-negotiation")

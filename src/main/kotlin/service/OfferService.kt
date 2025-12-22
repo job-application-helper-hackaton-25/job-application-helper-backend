@@ -13,6 +13,7 @@ class OfferService {
         transaction {
             OffersTable.selectAll().map {
                 Offer(
+                    id = it[OffersTable.id].value,
                     companyName = it[OffersTable.companyName],
                     companyImage = it[OffersTable.companyImage],
                     position = it[OffersTable.position],

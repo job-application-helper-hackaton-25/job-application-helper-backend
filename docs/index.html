@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Application API</title>
+  <title>Job Application Helper API</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
   <meta charset="UTF-8" />
@@ -689,6 +689,87 @@
   <script>
     // Script section to load models into a JS Var
     var defs = {}
+            defs["Offer"] = {
+  "type" : "object",
+  "properties" : {
+    "id" : {
+      "type" : "integer"
+    },
+    "companyName" : {
+      "type" : "string"
+    },
+    "companyImage" : {
+      "type" : "string"
+    },
+    "position" : {
+      "type" : "string"
+    },
+    "description" : {
+      "type" : "string"
+    },
+    "jobType" : {
+      "type" : "string"
+    },
+    "agreementType" : {
+      "type" : "string"
+    },
+    "salary" : {
+      "type" : "string"
+    },
+    "publishDate" : {
+      "type" : "string",
+      "format" : "date"
+    },
+    "linkToTheOffer" : {
+      "type" : "string",
+      "format" : "uri"
+    }
+  }
+};
+            defs["OfferInput"] = {
+  "required" : [ "agreementType", "companyName", "description", "jobType", "linkToTheOffer", "position", "publishDate", "salary" ],
+  "type" : "object",
+  "properties" : {
+    "companyName" : {
+      "type" : "string",
+      "example" : "Tech Company"
+    },
+    "companyImage" : {
+      "type" : "string",
+      "example" : "https://example.com/logo.png"
+    },
+    "position" : {
+      "type" : "string",
+      "example" : "Senior Software Engineer"
+    },
+    "description" : {
+      "type" : "string",
+      "example" : "Great opportunity for experienced developers"
+    },
+    "jobType" : {
+      "type" : "string",
+      "example" : "Full-time"
+    },
+    "agreementType" : {
+      "type" : "string",
+      "example" : "B2B"
+    },
+    "salary" : {
+      "type" : "string",
+      "example" : "15000-20000 PLN"
+    },
+    "publishDate" : {
+      "type" : "string",
+      "format" : "date",
+      "example" : "2025-12-22"
+    },
+    "linkToTheOffer" : {
+      "type" : "string",
+      "format" : "uri",
+      "example" : "https://example.com/offer/123"
+    }
+  }
+};
   </script>
 
   <div class="container-fluid">
@@ -706,6 +787,15 @@
             <li class="nav-fixed nav-header active" data-group="_"><a href="#api-_">API Summary</a></li>
 
                   <li class="nav-header" data-group="Default"><a href="#api-Default">API Methods - Default</a></li>
+                    <li data-group="Default" data-name="offersGet" class="">
+                      <a href="#api-Default-offersGet">offersGet</a>
+                    </li>
+                    <li data-group="Default" data-name="offersIdDelete" class="">
+                      <a href="#api-Default-offersIdDelete">offersIdDelete</a>
+                    </li>
+                    <li data-group="Default" data-name="offersPost" class="">
+                      <a href="#api-Default-offersPost">offersPost</a>
+                    </li>
                     <li data-group="Default" data-name="rootGet" class="">
                       <a href="#api-Default-rootGet">rootGet</a>
                     </li>
@@ -715,7 +805,7 @@
       <div id="content">
         <div id="project">
           <div class="pull-left">
-            <h1>Application API</h1>
+            <h1>Job Application Helper API</h1>
           </div>
           <div class="clearfix"></div>
         </div>
@@ -724,12 +814,853 @@
             <h2 id="welcome-to-apidoc">API and SDK Documentation</h2>
               <div class="app-desc">Version: 1.0.0</div>
             <hr>
-            <div>Application API</div>
+            <div>API for managing job offers</div>
           </div>
         </div>
         <div id="sections">
                 <section id="api-Default">
                   <h1>Default</h1>
+                    <div id="api-Default-offersGet">
+                      <article id="api-Default-offersGet-0" data-group="User" data-name="offersGet" data-version="0">
+                        <div class="pull-left">
+                          <h1>offersGet</h1>
+                          <p>Get all offers</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Retrieve a list of all job offers</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="get"><code><span class="pln">/offers</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-offersGet-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-offersGet-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-offersGet-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersGet-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-offersGet-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-offersGet-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersGet-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-offersGet-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-offersGet-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-offersGet-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-offersGet-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-offersGet-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X GET\
+-H "Accept: application/json"\
+"http://localhost:8080/offers"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-offersGet-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            array[Offer] result = apiInstance.offersGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-offersGet-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        try {
+            array[Offer] result = apiInstance.offersGet();
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersGet");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-offersGet-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-offersGet-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Get all offers
+[apiInstance offersGetWithCompletionHandler: 
+              ^(array[Offer] output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersGet-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
+
+var api = new JobApplicationHelperApi.DefaultApi()
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.offersGet(callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-offersGet-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-offersGet-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class offersGetExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new DefaultApi();
+
+            try
+            {
+                // Get all offers
+                array[Offer] result = apiInstance.offersGet();
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.offersGet: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersGet-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiDefaultApi();
+
+try {
+    $result = $api_instance->offersGet();
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->offersGet: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersGet-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+
+eval { 
+    my $result = $api_instance->offersGet();
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->offersGet: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersGet-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+
+try: 
+    # Get all offers
+    api_response = api_instance.offers_get()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->offersGet: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 200 - List of offers </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-offersGet-200-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-offersGet-200-schema">
+                                  <div id='responses-offersGet-200-schema-200' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "List of offers",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "array",
+        "items" : {
+          "$ref" : "#/components/schemas/Offer"
+        },
+        "x-content-type" : "application/json"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-offersGet-200-schema-data').val(stringify(schema));
+                                        var result = $('#responses-offersGet-200-schema-200');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-offersGet-200-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-offersIdDelete">
+                      <article id="api-Default-offersIdDelete-0" data-group="User" data-name="offersIdDelete" data-version="0">
+                        <div class="pull-left">
+                          <h1>offersIdDelete</h1>
+                          <p>Delete an offer</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Delete a job offer by ID</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="delete"><code><span class="pln">/offers/{id}</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-offersIdDelete-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersIdDelete-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersIdDelete-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-offersIdDelete-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-offersIdDelete-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X DELETE\
+"http://localhost:8080/offers/{id}"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-offersIdDelete-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        Integer id = 56; // Integer | The ID of the offer to delete
+        try {
+            apiInstance.offersIdDelete(id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersIdDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-offersIdDelete-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        Integer id = 56; // Integer | The ID of the offer to delete
+        try {
+            apiInstance.offersIdDelete(id);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersIdDelete");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-offersIdDelete-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-offersIdDelete-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">Integer *id = 56; // The ID of the offer to delete
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Delete an offer
+[apiInstance offersIdDeleteWith:id
+              completionHandler: ^(NSError* error) {
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdDelete-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
+
+var api = new JobApplicationHelperApi.DefaultApi()
+var id = 56; // {{Integer}} The ID of the offer to delete
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully.');
+  }
+};
+api.offersIdDelete(id, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-offersIdDelete-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-offersIdDelete-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class offersIdDeleteExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new DefaultApi();
+            var id = 56;  // Integer | The ID of the offer to delete
+
+            try
+            {
+                // Delete an offer
+                apiInstance.offersIdDelete(id);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.offersIdDelete: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdDelete-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiDefaultApi();
+$id = 56; // Integer | The ID of the offer to delete
+
+try {
+    $api_instance->offersIdDelete($id);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->offersIdDelete: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdDelete-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $id = 56; # Integer | The ID of the offer to delete
+
+eval { 
+    $api_instance->offersIdDelete(id => $id);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->offersIdDelete: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersIdDelete-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+id = 56 # Integer | The ID of the offer to delete
+
+try: 
+    # Delete an offer
+    api_instance.offers_id_delete(id)
+except ApiException as e:
+    print("Exception when calling DefaultApi->offersIdDelete: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+                            <div class="methodsubtabletitle">Path parameters</div>
+                            <table id="methodsubtable">
+                                <tr>
+                                  <th width="150px">Name</th>
+                                  <th>Description</th>
+                                </tr>
+                                  <tr><td style="width:150px;">id*</td>
+                                  <td>
+                                  
+                                  
+                                      <div id="d2e199_offersIdDelete_id">
+                                          <div class="json-schema-view">
+                                              <div class="primitive">
+                                                  <span class="type">
+                                                      Integer
+                                                  </span>
+                                  
+                                                      <div class="inner description">
+                                                          The ID of the offer to delete
+                                                      </div>
+                                              </div>
+                                                  <div class="inner required">
+                                                      Required
+                                                  </div>
+                                          </div>
+                                      </div>
+                                  </td>
+                                  </tr>
+                            </table>
+
+
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 204 - Offer deleted successfully </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 400 - Invalid ID format </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                            <h3> Status: 404 - Offer not found </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
+                    <div id="api-Default-offersPost">
+                      <article id="api-Default-offersPost-0" data-group="User" data-name="offersPost" data-version="0">
+                        <div class="pull-left">
+                          <h1>offersPost</h1>
+                          <p>Create a new offer</p>
+                        </div>
+                        <div class="pull-right"></div>
+                        <div class="clearfix"></div>
+                        <p></p>
+                        <p class="marked">Add a new job offer to the database</p>
+                        <p></p>
+                        <br />
+                        <pre class="prettyprint language-html prettyprinted" data-type="post"><code><span class="pln">/offers</span></code></pre>
+                        <p>
+                          <h3>Usage and SDK Samples</h3>
+                        </p>
+                        <ul class="nav nav-tabs nav-tabs-examples">
+                          <li class="active"><a href="#examples-Default-offersPost-0-curl">Curl</a></li>
+                          <li class=""><a href="#examples-Default-offersPost-0-java">Java</a></li>
+                          <li class=""><a href="#examples-Default-offersPost-0-android">Android</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersPost-0-groovy">Groovy</a></li>-->
+                          <li class=""><a href="#examples-Default-offersPost-0-objc">Obj-C</a></li>
+                          <li class=""><a href="#examples-Default-offersPost-0-javascript">JavaScript</a></li>
+                          <!--<li class=""><a href="#examples-Default-offersPost-0-angular">Angular</a></li>-->
+                          <li class=""><a href="#examples-Default-offersPost-0-csharp">C#</a></li>
+                          <li class=""><a href="#examples-Default-offersPost-0-php">PHP</a></li>
+                          <li class=""><a href="#examples-Default-offersPost-0-perl">Perl</a></li>
+                          <li class=""><a href="#examples-Default-offersPost-0-python">Python</a></li>
+                        </ul>
+
+                        <div class="tab-content">
+                          <div class="tab-pane active" id="examples-Default-offersPost-0-curl">
+                           <pre class="prettyprint"><code class="language-bsh">curl -X POST\
+-H "Accept: application/json"\
+-H "Content-Type: application/json"\
+"http://localhost:8080/offers"</code></pre>
+                          </div>
+                          <div class="tab-pane" id="examples-Default-offersPost-0-java">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
+import io.swagger.client.auth.*;
+import io.swagger.client.model.*;
+import io.swagger.client.api.DefaultApi;
+
+import java.io.File;
+import java.util.*;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        
+        DefaultApi apiInstance = new DefaultApi();
+        OfferInput body = ; // OfferInput | 
+        try {
+            Object result = apiInstance.offersPost(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+
+                          <div class="tab-pane" id="examples-Default-offersPost-0-android">
+                            <pre class="prettyprint"><code class="language-java">import io.swagger.client.api.DefaultApi;
+
+public class DefaultApiExample {
+
+    public static void main(String[] args) {
+        DefaultApi apiInstance = new DefaultApi();
+        OfferInput body = ; // OfferInput | 
+        try {
+            Object result = apiInstance.offersPost(body);
+            System.out.println(result);
+        } catch (ApiException e) {
+            System.err.println("Exception when calling DefaultApi#offersPost");
+            e.printStackTrace();
+        }
+    }
+}</code></pre>
+                          </div>
+  <!--
+  <div class="tab-pane" id="examples-Default-offersPost-0-groovy">
+  <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+  </div> -->
+                            <div class="tab-pane" id="examples-Default-offersPost-0-objc">
+                              <pre class="prettyprint"><code class="language-cpp">OfferInput *body = ; // 
+
+DefaultApi *apiInstance = [[DefaultApi alloc] init];
+
+// Create a new offer
+[apiInstance offersPostWith:body
+              completionHandler: ^(Object output, NSError* error) {
+                            if (output) {
+                                NSLog(@"%@", output);
+                            }
+                            if (error) {
+                                NSLog(@"Error: %@", error);
+                            }
+                        }];
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersPost-0-javascript">
+                              <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
+
+var api = new JobApplicationHelperApi.DefaultApi()
+var body = ; // {{OfferInput}} 
+
+var callback = function(error, data, response) {
+  if (error) {
+    console.error(error);
+  } else {
+    console.log('API called successfully. Returned data: ' + data);
+  }
+};
+api.offersPost(body, callback);
+</code></pre>
+                            </div>
+
+                            <!--<div class="tab-pane" id="examples-Default-offersPost-0-angular">
+              <pre class="prettyprint language-json prettyprinted" data-type="json"><code>Coming Soon!</code></pre>
+            </div>-->
+                            <div class="tab-pane" id="examples-Default-offersPost-0-csharp">
+                              <pre class="prettyprint"><code class="language-cs">using System;
+using System.Diagnostics;
+using IO.Swagger.Api;
+using IO.Swagger.Client;
+using IO.Swagger.Model;
+
+namespace Example
+{
+    public class offersPostExample
+    {
+        public void main()
+        {
+
+            var apiInstance = new DefaultApi();
+            var body = new OfferInput(); // OfferInput | 
+
+            try
+            {
+                // Create a new offer
+                Object result = apiInstance.offersPost(body);
+                Debug.WriteLine(result);
+            }
+            catch (Exception e)
+            {
+                Debug.Print("Exception when calling DefaultApi.offersPost: " + e.Message );
+            }
+        }
+    }
+}
+</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersPost-0-php">
+                              <pre class="prettyprint"><code class="language-php"><&#63;php
+require_once(__DIR__ . '/vendor/autoload.php');
+
+$api_instance = new Swagger\Client\ApiDefaultApi();
+$body = ; // OfferInput | 
+
+try {
+    $result = $api_instance->offersPost($body);
+    print_r($result);
+} catch (Exception $e) {
+    echo 'Exception when calling DefaultApi->offersPost: ', $e->getMessage(), PHP_EOL;
+}
+?></code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersPost-0-perl">
+                              <pre class="prettyprint"><code class="language-perl">use Data::Dumper;
+use WWW::SwaggerClient::Configuration;
+use WWW::SwaggerClient::DefaultApi;
+
+my $api_instance = WWW::SwaggerClient::DefaultApi->new();
+my $body = WWW::SwaggerClient::Object::OfferInput->new(); # OfferInput | 
+
+eval { 
+    my $result = $api_instance->offersPost(body => $body);
+    print Dumper($result);
+};
+if ($@) {
+    warn "Exception when calling DefaultApi->offersPost: $@\n";
+}</code></pre>
+                            </div>
+
+                            <div class="tab-pane" id="examples-Default-offersPost-0-python">
+                              <pre class="prettyprint"><code class="language-python">from __future__ import print_statement
+import time
+import swagger_client
+from swagger_client.rest import ApiException
+from pprint import pprint
+
+# create an instance of the API class
+api_instance = swagger_client.DefaultApi()
+body =  # OfferInput | 
+
+try: 
+    # Create a new offer
+    api_response = api_instance.offers_post(body)
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->offersPost: %s\n" % e)</code></pre>
+                            </div>
+                          </div>
+
+                          <h2>Parameters</h2>
+
+
+
+                            <div class="methodsubtabletitle">Body parameters</div>
+                            <table id="methodsubtable">
+                              <tr>
+                                <th width="150px">Name</th>
+                                <th>Description</th>
+                              </tr>
+                                <tr><td style="width:150px;">body <span style="color:red;">*</span></td>
+                                <td>
+                                
+                                
+                                <script>
+                                $(document).ready(function() {
+                                  var schemaWrapper = {
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "$ref" : "#/components/schemas/OfferInput"
+      }
+    }
+  },
+  "required" : true
+};
+                                  var schema = schemaWrapper.content["application/json"].schema;
+                                  if (schema.$ref != null) {
+                                    schema = defsParser.$refs.get(schema.$ref);
+                                  } else {
+                                    schemaWrapper.components = {};
+                                    schemaWrapper.components.schemas = Object.assign({}, defs);
+                                    $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                      console.log(err);
+                                    });
+                                  }
+                                
+                                  var view = new JSONSchemaView(schema,2,{isBodyParam: true});
+                                  var result = $('#d2e199_offersPost_body');
+                                  result.empty();
+                                  result.append(view.render());
+                                });
+                                </script>
+                                <div id="d2e199_offersPost_body"></div>
+                                </td>
+                                </tr>
+                            </table>
+
+
+
+                          <h2>Responses</h2>
+                            <h3> Status: 201 - Offer created successfully </h3>
+
+                            <ul class="nav nav-tabs nav-tabs-examples" >
+                                <li class="active">
+                                  <a data-toggle="tab" href="#responses-offersPost-201-schema">Schema</a>
+                                </li>
+
+                            </ul>
+
+                            <div class="tab-content" style='margin-bottom: 10px;'>
+                                <div class="tab-pane active" id="responses-offersPost-201-schema">
+                                  <div id='responses-offersPost-201-schema-201' style="padding: 30px; border-left: 1px solid #eee; border-right: 1px solid #eee; border-bottom: 1px solid #eee;">
+                                    <script>
+                                      $(document).ready(function() {
+                                        var schemaWrapper = {
+  "description" : "Offer created successfully",
+  "content" : {
+    "application/json" : {
+      "schema" : {
+        "type" : "object",
+        "properties" : {
+          "id" : {
+            "type" : "integer"
+          }
+        },
+        "x-content-type" : "application/json"
+      }
+    }
+  }
+};
+                                        var schema = schemaWrapper.content["application/json"].schema;
+                                        if (schema.$ref != null) {
+                                          schema = defsParser.$refs.get(schema.$ref);
+                                        } else {
+                                          schemaWrapper.components = {};
+                                          schemaWrapper.components.schemas = Object.assign({}, defs);
+                                          $RefParser.dereference(schemaWrapper).catch(function(err) {
+                                            console.log(err);
+                                          });
+                                        }
+
+                                        //console.log(JSON.stringify(schema));
+                                        var view = new JSONSchemaView(schema, 3);
+                                        $('#responses-offersPost-201-schema-data').val(stringify(schema));
+                                        var result = $('#responses-offersPost-201-schema-201');
+                                        result.empty();
+                                        result.append(view.render());
+                                      });
+                                    </script>
+                                  </div>
+                                  <input id='responses-offersPost-201-schema-data' type='hidden' value=''></input>
+                                </div>
+                            </div>
+
+                        </article>
+                      </div>
+                      <hr>
                     <div id="api-Default-rootGet">
                       <article id="api-Default-rootGet-0" data-group="User" data-name="rootGet" data-version="0">
                         <div class="pull-left">
@@ -764,7 +1695,7 @@
                           <div class="tab-pane active" id="examples-Default-rootGet-0-curl">
                            <pre class="prettyprint"><code class="language-bsh">curl -X GET\
 -H "Accept: text/plain"\
-"http://0.0.0.0:8080/"</code></pre>
+"http://localhost:8080/"</code></pre>
                           </div>
                           <div class="tab-pane" id="examples-Default-rootGet-0-java">
                             <pre class="prettyprint"><code class="language-java">import io.swagger.client.*;
@@ -829,9 +1760,9 @@ DefaultApi *apiInstance = [[DefaultApi alloc] init];
                             </div>
 
                             <div class="tab-pane" id="examples-Default-rootGet-0-javascript">
-                              <pre class="prettyprint"><code class="language-js">var ApplicationApi = require('application_api');
+                              <pre class="prettyprint"><code class="language-js">var JobApplicationHelperApi = require('job_application_helper_api');
 
-var api = new ApplicationApi.DefaultApi()
+var api = new JobApplicationHelperApi.DefaultApi()
 var callback = function(error, data, response) {
   if (error) {
     console.error(error);
