@@ -16,7 +16,7 @@ object DatabaseConfig {
         )
 
         transaction {
-            SchemaUtils.create(OffersTable)
+            SchemaUtils.createMissingTablesAndColumns(OffersTable)
         }
     }
 }

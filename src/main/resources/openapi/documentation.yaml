@@ -1,10 +1,11 @@
 openapi: "3.0.3"
 info:
-  title: "Application API"
-  description: "Application API"
+  title: "Job Application Helper API"
+  description: "API for managing job offers"
   version: "1.0.0"
 servers:
-  - url: "http://0.0.0.0:8080"
+  - url: "http://localhost:8080"
+  - url: "http://127.0.0.1:8080"
 paths:
   /:
     get:
@@ -19,5 +20,265 @@ paths:
               examples:
                 Example#1:
                   value: "Hello World!"
+  /offers:
+    get:
+      summary: "Get all offers"
+      description: "Retrieve a list of all job offers"
+      responses:
+        "200":
+          description: "List of offers"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  $ref: "#/components/schemas/Offer"
+  /offers/statuses:
+    get:
+      summary: "Get available statuses"
+      description: "Retrieve a list of all possible offer status values"
+      responses:
+        "200":
+          description: "List of available statuses"
+          content:
+            application/json:
+              schema:
+                type: "array"
+                items:
+                  type: "object"
+                  properties:
+                    value:
+                      type: "string"
+                      description: "Status enum value"
+                    label:
+                      type: "string"
+                      description: "Human-readable status label"
+              example:
+                - value: "FOLLOWING"
+                  label: "Following"
+                - value: "APPLIED"
+                  label: "Applied"
+                - value: "INTERVIEW_STAGE"
+                  label: "Interview stage"
+  /offers/post:
+      summary: "Create a new offer"
+      description: "Add a new job offer to the database"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferInput"
+      responses:
+        "201":
+          description: "Offer created successfully"
+          content:
+            application/json:
+              schema:
+                type: "object"
+                properties:
+                  id:
+                    type: "integer"
+  /offers/{id}:
+    put:
+      summary: "Replace an offer (full update)"
+      description: "**Replaces the entire offer resource.** All fields must be provided in the request body. Missing fields will be set to their default values or null. Use PATCH for partial updates."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+          description: "The ID of the offer to replace"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/OfferInput"
+      responses:
+        "200":
+          description: "Offer replaced successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Offer"
+        "400":
+          description: "Invalid ID format"
+        "404":
+          description: "Offer not found"
+    patch:
+      summary: "Update an offer (partial update)"
+      description: "**Updates only the specified fields.** Only the fields included in the request body will be modified. All other fields remain unchanged. This is useful when you want to update specific properties without affecting the rest."
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+          description: "The ID of the offer to update"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: "object"
+              description: "Object containing only the fields to update"
+              properties:
+                companyName:
+                  type: "string"
+                companyImage:
+                  type: "string"
+                position:
+                  type: "string"
+                description:
+                  type: "string"
+                jobType:
+                  type: "string"
+                agreementType:
+                  type: "string"
+                salary:
+                  type: "string"
+                publishDate:
+                  type: "string"
+                  format: "date"
+                linkToTheOffer:
+                  type: "string"
+                  format: "uri"
+                status:
+                  type: "string"
+                  enum:
+                    - FOLLOWING
+                    - APPLIED
+                    - INTERVIEW_STAGE
+                    - WAITING_FOR_FEEDBACK
+                    - OFFER_RECEIVED
+                    - REJECTED
+                    - ACCEPTED
+                    - NO_FEEDBACK
+              example:
+                companyName: "Updated Company Name"
+                salary: "20000-25000 PLN"
+                status: "INTERVIEW_STAGE"
+      responses:
+        "200":
+          description: "Offer updated successfully"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Offer"
+        "400":
+          description: "Invalid ID format"
+        "404":
+          description: "Offer not found"
+    delete:
+      summary: "Delete an offer"
+      description: "Delete a job offer by ID"
+      parameters:
+        - name: "id"
+          in: "path"
+          required: true
+          schema:
+            type: "integer"
+          description: "The ID of the offer to delete"
+      responses:
+        "204":
+          description: "Offer deleted successfully"
+        "400":
+          description: "Invalid ID format"
+        "404":
+          description: "Offer not found"
 components:
-  schemas: { }
+  schemas:
+    Offer:
+      type: "object"
+      properties:
+        id:
+          type: "integer"
+        companyName:
+          type: "string"
+        companyImage:
+          type: "string"
+        position:
+          type: "string"
+        description:
+          type: "string"
+        jobType:
+          type: "string"
+        agreementType:
+          type: "string"
+        salary:
+          type: "string"
+        publishDate:
+          type: "string"
+          format: "date"
+        linkToTheOffer:
+          type: "string"
+          format: "uri"
+        status:
+          type: "string"
+          enum:
+            - FOLLOWING
+            - APPLIED
+            - INTERVIEW_STAGE
+            - WAITING_FOR_FEEDBACK
+            - OFFER_RECEIVED
+            - REJECTED
+            - ACCEPTED
+            - NO_FEEDBACK
+          default: FOLLOWING
+          description: "Application process status"
+    OfferInput:
+      type: "object"
+      required:
+        - companyName
+        - position
+        - description
+        - jobType
+        - agreementType
+        - salary
+        - publishDate
+        - linkToTheOffer
+      properties:
+        companyName:
+          type: "string"
+          example: "Tech Company"
+        companyImage:
+          type: "string"
+          example: "https://example.com/logo.png"
+        position:
+          type: "string"
+          example: "Senior Software Engineer"
+        description:
+          type: "string"
+          example: "Great opportunity for experienced developers"
+        jobType:
+          type: "string"
+          example: "Full-time"
+        agreementType:
+          type: "string"
+          example: "B2B"
+        salary:
+          type: "string"
+          example: "15000-20000 PLN"
+        publishDate:
+          type: "string"
+          format: "date"
+          example: "2025-12-22"
+        linkToTheOffer:
+          type: "string"
+          format: "uri"
+          example: "https://example.com/offer/123"
+        status:
+          type: "string"
+          enum:
+            - FOLLOWING
+            - APPLIED
+            - INTERVIEW_STAGE
+            - WAITING_FOR_FEEDBACK
+            - OFFER_RECEIVED
+            - REJECTED
+            - ACCEPTED
+            - NO_FEEDBACK
+          default: FOLLOWING
+          description: "Application process status"
