@@ -1,6 +1,7 @@
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
+import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import model.Todo
 import service.TodoService
@@ -26,6 +27,19 @@ fun Route.todoRoutes() {
             val created = repository.insert(todo, offerId)
 
             call.respond(HttpStatusCode.Created, created)
+        }
+
+        patch("{id}"){
+            val id = call.parameters["id"]?.toIntOrNull()
+                ?: return@patch call.respond(HttpStatusCode.BadRequest, "Invalid ID")
+
+            val completed = call.receive<Boolean>()
+            val statusChange = repository.updateStatus(id, completed)
+            if (statusChange != null) {
+                call.respond(HttpStatusCode.OK, statusChange)
+            } else {
+                call.respond(HttpStatusCode.NotAcceptable, "Status change incorrect")
+            }
         }
 
         delete("{id}") {
