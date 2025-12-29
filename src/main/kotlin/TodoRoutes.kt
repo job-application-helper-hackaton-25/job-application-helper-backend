@@ -1,7 +1,6 @@
 import io.ktor.http.*
 import io.ktor.server.request.*
 import io.ktor.server.response.*
-import io.ktor.server.response.respond
 import io.ktor.server.routing.*
 import model.Todo
 import service.TodoService
@@ -23,7 +22,7 @@ fun Route.todoRoutes() {
             val offerId = call.parameters["offerId"]
                 ?: return@post call.respond(HttpStatusCode.BadRequest)
 
-            var todo = call.receive<Todo>()
+            val todo = call.receive<Todo>()
             val created = repository.insert(todo, offerId)
 
             call.respond(HttpStatusCode.Created, created)
