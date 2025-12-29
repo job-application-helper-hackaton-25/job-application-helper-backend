@@ -35,7 +35,11 @@ class TodoService {
                 it[TodosTable.userId] = todo.userId
                 it[TodosTable.offerId] = offerId
                 it[TodosTable.content] = todo.content
-                it[TodosTable.deadline] = todo.deadline
+
+                todo.deadline?.let { deadline ->
+                    it[TodosTable.deadline] = deadline
+                }
+
                 it[TodosTable.priority] = todo.priority
                 it[TodosTable.completed] = todo.completed
             }.value

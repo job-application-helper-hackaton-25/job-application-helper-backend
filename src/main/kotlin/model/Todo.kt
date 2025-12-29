@@ -8,7 +8,7 @@ data class Todo(
     val userId: String,
     val offerId: String,
     val content: String,
-    val deadline: String,
+    val deadline: String? = null,
     val priority: String,
     val completed: Boolean
 )
