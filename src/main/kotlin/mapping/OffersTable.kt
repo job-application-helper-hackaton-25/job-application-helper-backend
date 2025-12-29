@@ -2,8 +2,6 @@ package mapping
 
 import org.jetbrains.exposed.dao.id.IntIdTable
 
-import model.OfferStatus
-
 object OffersTable : IntIdTable("offers") {
     val companyName = varchar("company_name", 255)
     val companyImage = varchar("company_image", 255)
