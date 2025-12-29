@@ -1,9 +1,11 @@
 package config
 
+import mapping.NotesTable
 import mapping.OffersTable
+import mapping.TodosTable
 import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.transactions.transaction
 import org.jetbrains.exposed.sql.SchemaUtils
+import org.jetbrains.exposed.sql.transactions.transaction
 
 object DatabaseConfig {
 
@@ -17,6 +19,8 @@ object DatabaseConfig {
 
         transaction {
             SchemaUtils.createMissingTablesAndColumns(OffersTable)
+            SchemaUtils.createMissingTablesAndColumns(NotesTable)
+            SchemaUtils.createMissingTablesAndColumns(TodosTable)
         }
     }
 }
