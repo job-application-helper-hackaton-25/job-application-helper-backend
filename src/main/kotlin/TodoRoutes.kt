@@ -22,10 +22,23 @@ fun Route.todoRoutes() {
             val offerId = call.parameters["offerId"]
                 ?: return@post call.respond(HttpStatusCode.BadRequest)
 
-            var todo = call.receive<Todo>()
+            val todo = call.receive<Todo>()
             val created = repository.insert(todo, offerId)
 
             call.respond(HttpStatusCode.Created, created)
+        }
+
+        patch("{id}"){
+            val id = call.parameters["id"]?.toIntOrNull()
+                ?: return@patch call.respond(HttpStatusCode.BadRequest, "Invalid ID")
+
+            val completed = call.receive<Boolean>()
+            val statusChange = repository.updateStatus(id, completed)
+            if (statusChange != null) {
+                call.respond(HttpStatusCode.OK, statusChange)
+            } else {
+                call.respond(HttpStatusCode.NotAcceptable, "Status change incorrect")
+            }
         }
 
         delete("{id}") {

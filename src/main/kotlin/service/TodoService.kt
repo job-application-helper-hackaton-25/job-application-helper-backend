@@ -7,6 +7,7 @@ import org.jetbrains.exposed.sql.deleteWhere
 import org.jetbrains.exposed.sql.insertAndGetId
 import org.jetbrains.exposed.sql.select
 import org.jetbrains.exposed.sql.transactions.transaction
+import org.jetbrains.exposed.sql.update
 
 class TodoService {
 
@@ -43,6 +44,25 @@ class TodoService {
                 it[TodosTable.priority] = todo.priority
                 it[TodosTable.completed] = todo.completed
             }.value
+        }
+
+    fun updateStatus(id: Int, completed: Boolean): Todo? =
+        transaction {
+            TodosTable.update({ TodosTable.id eq id }) { row ->
+                row[TodosTable.completed] = completed
+            }
+
+            TodosTable.select { TodosTable.id eq id }.map {
+                Todo(
+                    id = it[TodosTable.id].value,
+                    userId = it[TodosTable.userId],
+                    offerId = it[TodosTable.offerId],
+                    content = it[TodosTable.content],
+                    deadline = it[TodosTable.deadline],
+                    priority = it[TodosTable.priority],
+                    completed = it[TodosTable.completed]
+                )
+            }.firstOrNull()
         }
 
     fun deleteById(id: Int): Boolean =
